@@ -6,7 +6,7 @@
 
 ## How to run
 ```
-[git clone https://github.com/nn-df/suricata-installation.git](https://github.com/m0nK3man/suricata-installation)
+https://github.com/m0nK3man/suricata-installation
 cd suricata-installation
 sudo bash suricata.sh
 ```
