@@ -129,7 +129,7 @@ outputs:
       # to make the id less predictable.
 
       # enable/disable the community id feature.
-      community-id: false
+      community-id: true
       # Seed value for the ID output. Valid values are 0-65535.
       community-id-seed: 0
 
@@ -153,9 +153,9 @@ outputs:
 
       types:
         - alert:
-            # payload: yes             # enable dumping payload in Base64
-            # payload-buffer-size: 4kb # max size of payload buffer to output in eve-log
-            # payload-printable: yes   # enable dumping payload in printable (lossy) format
+            payload: yes             # enable dumping payload in Base64
+            payload-buffer-size: 4kb # max size of payload buffer to output in eve-log
+            payload-printable: yes   # enable dumping payload in printable (lossy) format
             # packet: yes              # enable dumping of packet (without stream segments)
             # metadata: no             # enable inclusion of app layer metadata with alert. Default yes
             # http-body: yes           # Requires metadata; enable dumping of http body in Base64
@@ -164,6 +164,12 @@ outputs:
             # Enable the logging of tagged packets for rules using the
             # "tag" keyword.
             tagged-packets: yes
+
+  - eve-log:
+      enabled: yes
+      filetype: regular #regular|syslog|unix_dgram|unix_stream|redis
+      filename: anomaly.log
+      types:
         - anomaly:
             # Anomaly log records describe unexpected conditions such
             # as truncated packets, packets with invalid IP/UDP/TCP
@@ -193,7 +199,11 @@ outputs:
             #
             # Choose one or more types of anomaly logging and whether to enable
             # logging of the packet header for packet anomalies.
-            types:
+  - eve-log:
+      enabled: no
+      filename: traffic.log
+      append: yes
+      types:
               # decode: no
               # stream: no
               # applayer: yes
@@ -1051,8 +1061,8 @@ coredump:
 # This feature is currently only used by the reject* keywords.
 host-mode: auto
 
-# Number of packets preallocated per thread. The default is 1024. A higher number 
-# will make sure each CPU will be more easily kept busy, but may negatively 
+# Number of packets preallocated per thread. The default is 1024. A higher number
+# will make sure each CPU will be more easily kept busy, but may negatively
 # impact caching.
 #max-pending-packets: 1024
 
@@ -1087,7 +1097,7 @@ unix-command:
 
 # Magic file. The extension .mgc is added to the value here.
 #magic-file: /usr/share/file/magic
-#magic-file: 
+#magic-file:
 
 # GeoIP2 database file. Specify path and filename of GeoIP2 database
 # if using rules with "geoip" rule option.
@@ -1971,7 +1981,7 @@ rule-files:
  - stream-events.rules
  - tls-events.rules
  - tor.rules
-              
+
 ##
 ## Auxiliary configuration files.
 ##
@@ -1991,3 +2001,5 @@ reference-config-file: /etc/suricata/reference.config
 # You can specify more than 2 configuration files, if needed.
 #include: include1.yaml
 #include: include2.yaml
+detect-engine:
+  - rule-reload: true
