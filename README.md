@@ -6,15 +6,7 @@
 
 ## How to run
 ```
-https://github.com/m0nK3man/suricata-installation
+git clone https://github.com/m0nK3man/suricata-installation
 cd suricata-installation
 sudo bash suricata.sh
 ```
-
-### Detail installation
-- Will install latest version suricata. [current 6.0.8 (06-November-2022) ]
-- Log location /var/log/suricata/
-- Rules location /etc/suricata/rules/
-
-### Youtube Link Video [https://youtu.be/sCzPkT_nQQE]
-[<img src="https://img.youtube.com/vi/sCzPkT_nQQE/0.jpg" width="25%">](https://www.youtube.com/watch?v=sCzPkT_nQQE)
